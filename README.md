@@ -9,6 +9,8 @@
 
   > Section: S1
 
+  >Team ID: S1-T3
+
   > Member-1: Abhijit Kar, 231CS106, abhijitkar.231cs106@nitk.edu.in
 
   > member-2: Sarth Santosh Shah, 231CS154 , sarthshah.231cs154@nitk.edu.in
@@ -101,6 +103,14 @@ burnt Total workout duration This summary helps athletes analyze their performan
 future goals, and track their progress over time.
 </details>
 
+## Functional Block Diagram
+<details>
+  <summary>Detail</summary>
+  
+  ![sample](https://github.com/user-attachments/assets/588c9f81-997e-431b-8da3-0b40f3713d4e)
+
+
+
 <!-- Third Section -->
 ## Working
 <details>
@@ -114,7 +124,7 @@ future goals, and track their progress over time.
 <details>
   <summary>Detail</summary>
 
-  > Update a neat logisim circuit diagram
+  > 
 </details>
 
 <!-- Fifth Section -->
@@ -123,4 +133,13 @@ future goals, and track their progress over time.
   <summary>Detail</summary>
 
   > Neatly update the Verilog code in code style only.
+>
+## References
+<details>
+  <summary>Detail</summary>
+  
+>   
+   
+</details>
+
 </details>(https://github.com/abhijitkar10/DDS-project/edit/main/README.md)
