@@ -46,7 +46,8 @@
       - **Speed Calculation:** Calculates and displays the athlete’s speed in real-time, helping them gauge their pace and make adjustments as needed.
       - **Time Tracking:** Records the duration of the workout, allowing users to analyze their pace and improve their running strategy.
       - **Calories Burnt Calculation and Display:** The system provides an estimate of how many calories the athlete has burned during the session.
-    3.**Time Monitoring System :** It includes a stopwatch that activates when the athlete starts their activity. This stopwatch is vital, as multiple components in the system depend on it. It
+
+    3.**Time Monitoring System :** It includes a stopwatch that activates when the athlete starts their activity. This stopwatch is vital, as multiple components in the system depend on it. 
       continuously tracks the duration of the workout and is essential for calculating key performance metrics, including speed, distance covered, and calories burned. Its integration ensures real-time accuracy and consistency, supporting other features like 
       heartbeat monitoring and the  pedometer. This allows athletes to receive precise feedback on their performance and make informed adjustments during their sessions.
 
