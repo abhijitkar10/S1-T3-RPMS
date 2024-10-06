@@ -70,7 +70,7 @@
     ![S1-T3 drawio](https://github.com/user-attachments/assets/2bbb940c-fdab-4bb3-bfac-54981a47a3ea)
     ![image](https://github.com/user-attachments/assets/21a67f65-cedf-4257-b700-7cc2b1eaa128)
     
-![image](https://github-production-user-asset-6210df.s3.amazonaws.com/134596563/373975702-2bbb940c-fdab-4bb3-bfac-54981a47a3ea.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20241006%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20241006T201313Z&X-Amz-Expires=300&X-Amz-Signature=1d252cde09947a1a20689ddc9e088ebe121d1c447143cb539b721e0b054cf2ed&X-Amz-SignedHeaders=host)
+
   </summary>
 
 </details>
