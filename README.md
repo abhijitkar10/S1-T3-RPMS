@@ -67,7 +67,7 @@
 ## Functional Block Diagram
 <details>
   <summary>
-    ![S1-T3 drawio](https://github.com/user-attachments/assets/2bbb940c-fdab-4bb3-bfac-54981a47a3ea)
+    ![S1-T3 drawio](https://github.com/user-attachments/assets/2bbb940c-fdab-4bb3-bfac-54981a47a3ea)![S1-T3 drawio]                    (https://github.com/user-attachments/assets/2bbb940c-fdab-4bb3-bfac-54981a47a3ea)
    
 
   </summary>
