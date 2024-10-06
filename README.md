@@ -108,14 +108,14 @@ future goals, and track their progress over time.
   <summary>Detail</summary>
   
 
-
+</details>
 
 <!-- Third Section -->
 ## Working
 <details>
   <summary>Detail</summary>
 
-  > Explain the working of your model with the help of a functional table (compulsory) followed by the flowchart.
+  > Explain how your model works with the help of a functional table (compulsory) followed by the flowchart.
 </details>
 
 <!-- Fourth Section -->
@@ -123,7 +123,7 @@ future goals, and track their progress over time.
 <details>
   <summary>Detail</summary>
 
-  > 
+  > Update a neat logisim circuit diagram
 </details>
 
 <!-- Fifth Section -->
@@ -132,13 +132,13 @@ future goals, and track their progress over time.
   <summary>Detail</summary>
 
   > Neatly update the Verilog code in code style only.
->
+</details>
+
 ## References
 <details>
   <summary>Detail</summary>
-  
->   
-   
+
 </details>
 
-</details>(https://github.com/abhijitkar10/DDS-project/edit/main/README.md)
+
+
