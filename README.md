@@ -1,4 +1,4 @@
-![S1-T3 drawio](https://github.com/user-attachments/assets/2bbb940c-fdab-4bb3-bfac-54981a47a3ea)# Runner's Performance Measuring System
+# Runner's Performance Measuring System
 
 <!-- First Section -->
 ## Team Details
@@ -67,7 +67,8 @@
 ## Functional Block Diagram
 <details>
   <summary>
-    ![image](https://github.com/user-attachments/assets/21a67f65-cedf-4257-b700-7cc2b1eaa128)
+    ![S1-T3 drawio](https://github.com/user-attachments/assets/2bbb940c-fdab-4bb3-bfac-54981a47a3ea)
+   
 
   </summary>
 
