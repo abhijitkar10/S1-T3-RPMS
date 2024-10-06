@@ -22,8 +22,8 @@
 ## Abstract
 <details>
   <summary>Detail</summary>
-1. Motivation: For a runner, every step marks progress, and every heartbeat reflects determi-
-nation. Running is more than just physical activity—it’s a journey of self-improvement and
+1.** Motivation:** For a runner, every step marks progress, and every heartbeat reflects  determination.
+Running is more than just physical activity—it’s a journey of self-improvement and
 resilience. To support this growth, a tool is needed to accurately track performance and inspire
 continuous improvement.
 Our goal is to create a system that focuses on essential metrics like steps, distance, and heart
@@ -35,7 +35,7 @@ Real-time data offers powerful motivation, pushing runners to reach new personal
 project is about more than building a performance tracker; it’s about capturing the spirit of
 running—helping runners celebrate progress, understand their limits, and push beyond them
 
-2. Problem Statement: Optimizing physical performance is essential for runners, athletes,
+2.** Problem Statement** : Optimizing physical performance is essential for runners, athletes,
 and fitness enthusiasts in today’s active lifestyle. Effective monitoring of performance metrics
 is crucial for enhancing training efficiency and ensuring user safety during exercise. While
 many advanced gadgets are available, the challenge lies in creating a simple, cost-effective,
@@ -50,7 +50,7 @@ flip-flops, and comparators to process and display necessary data, enabling effi
 focused on critical parameters for tracking, optimizing, and ensuring the safety of a runner’s
 performance.
 
-3 Features: This system is designed to assist athletes in monitoring their performance during
+3. **Features**: This system is designed to assist athletes in monitoring their performance during
 running sessions, using both sequential and combinational circuits. It consists of five key
 components:
 1. The Heartbeat Monitoring System plays a crucial role in ensuring the athlete’s safety during workouts.
@@ -60,23 +60,32 @@ The system has two types of classifications:
 Based on the instantaneous heart rate:
 a.Green State (Safe Heartbeat): Indicates that the athlete’s heart rate is within a safe range,
 allowing them to continue their activity without concern.
+
 b.Yellow State (Warning): Signals that the heart rate is approaching a threshold that may
 require caution, prompting the athlete to be aware of their exertion level.
+
 c.Red State (Emergency Heartbeat): Represents a critical condition where the heart rate
 exceeds safe limits. If this state is reached, an alarm is triggered to alert the athlete to take
 immediate action.
+
 Based on the average heart rate: At the end of the run, the system evaluates the athlete’s
 average heart rate and classifies their performance into one of three distinct stages:
+
 a.Warmup Zone: The athlete’s average heart rate remains low, indicating a light exercise
 intensity, suitable for warming up the body before engaging in more strenuous activity.
+
 b.Fat Burning Zone: The heart rate is elevated to an optimal range for burning fat, where
 the body efficiently uses fat as the primary energy source. This zone is ideal for sustained,
 moderate-intensity exercise.
+
 c.Maximum Effort Zone: The heart rate reaches a high level, pushing the athlete into a more
 intense workout. This is ideal for short bursts of high-intensity effort.
+
 Additionally, the system records the peak heartbeat of the athlete during the session, providing
 valuable data for evaluating cardiovascular fitness. Knowing the peak heart rate helps athletes
 adjust their training intensity and avoid overexertion.
+
+
 2. Pedometer The Pedometer tracks the steps covered by the athlete and calculates the
 distance traveled during their run. It requires the user to input their stride length, which
 allows for accurate distance measurements.
@@ -98,8 +107,8 @@ action to prevent potential health risks.
 
 5. End of Session Summary At the conclusion of each workout session, the system provides
 a comprehensive end-of-session summary. This summary includes:
-Average heartbeat Peak heartbeat Total distance covered Total steps taken Total calories
-burnt Total workout duration This summary helps athletes analyze their performance, set
+Average heartbeat, Peak heartbeat ,Total distance covered ,Total steps taken ,Total calories
+burnt , Total workout duration This summary helps athletes analyze their performance, set
 future goals, and track their progress over time.
 </details>
 
