@@ -35,7 +35,7 @@ Real-time data offers powerful motivation, pushing runners to reach new personal
 project is about more than building a performance tracker; it’s about capturing the spirit of
 running—helping runners celebrate progress, understand their limits, and push beyond them
 
-2.** Problem Statement** : Optimizing physical performance is essential for runners, athletes,
+2. Problem Statement : Optimizing physical performance is essential for runners, athletes,
 and fitness enthusiasts in today’s active lifestyle. Effective monitoring of performance metrics
 is crucial for enhancing training efficiency and ensuring user safety during exercise. While
 many advanced gadgets are available, the challenge lies in creating a simple, cost-effective,
@@ -50,10 +50,11 @@ flip-flops, and comparators to process and display necessary data, enabling effi
 focused on critical parameters for tracking, optimizing, and ensuring the safety of a runner’s
 performance.
 
-3. **Features**: This system is designed to assist athletes in monitoring their performance during
+3.Features: 
+This system is designed to assist athletes in monitoring their performance during
 running sessions, using both sequential and combinational circuits. It consists of five key
 components:
-1. The Heartbeat Monitoring System plays a crucial role in ensuring the athlete’s safety during workouts.
+  1. The Heartbeat Monitoring System plays a crucial role in ensuring the athlete’s safety during workouts.
 It continuously monitors heart rate inputs taken at regular intervals and calculates the average heartbeat
 instantaneously.
 The system has two types of classifications:
