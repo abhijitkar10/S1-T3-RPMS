@@ -67,8 +67,10 @@
 ## Functional Block Diagram
 <details>
   <summary>Detail</summary>
+  
+  ![Untitled Diagram drawio (4)](https://github.com/user-attachments/assets/75ebc23e-23d5-4789-8b7f-faaf63e81bdf)
 
-  ![image](https://github.com/user-attachments/assets/21a67f65-cedf-4257-b700-7cc2b1eaa128)
+  
 
 </details>
 
