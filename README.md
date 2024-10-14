@@ -76,7 +76,8 @@
   <summary>Detail</summary>
   
 ### State Diagram:
-![S1-T3 drawio (2)](https://github.com/user-attachments/assets/296347c7-49a8-4891-8baa-6079ddae92eb)
+
+![final drawio (1)](https://github.com/user-attachments/assets/55497d9f-feb3-4b16-aa4c-1251be80ded6)
 
 
 ### Module Functional Table:
