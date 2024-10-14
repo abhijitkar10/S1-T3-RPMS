@@ -47,9 +47,7 @@
       - **Time Tracking:** Records the duration of the workout, allowing users to analyze their pace and improve their running strategy.
       - **Calories Burnt Calculation and Display:** The system provides an estimate of how many calories the athlete has burned during the session.
 
-    3. **Time Monitoring System:** It includes a stopwatch that activates when the athlete starts their activity. This stopwatch is vital, as multiple components in the system depend on it. 
-          continuously tracks the duration of the workout and is essential for calculating key performance metrics, including speed, distance covered, and calories burned. Its integration ensures real-time accuracy and consistency, supporting other features like 
-          heartbeat monitoring and the  pedometer. This allows athletes to receive precise feedback on their performance and make informed adjustments during their sessions.
+    3. **Time Monitoring System:** It includes a stopwatch that activates when the athlete starts their activity. This stopwatch is vital, as multiple components in the system depend on it. It continuously tracks the duration of the workout and is essential for calculating key performance metrics, including speed, distance covered, and calories burned. Its integration ensures real-time accuracy and consistency, supporting other features like heartbeat monitoring and the pedometer. This allows athletes to receive precise feedback on their performance and make informed adjustments during their sessions.
 
     4. **Alarm System:** An integrated alarm system is triggered when the heart rate enters the red state. This alarm acts as a critical safety feature, alerting the athlete to take immediate action to prevent potential health risks.
 
@@ -67,19 +65,54 @@
 ## Functional Block Diagram
 <details>
   <summary>Detail</summary>
-  
-  ![Untitled Diagram drawio (4)](https://github.com/user-attachments/assets/75ebc23e-23d5-4789-8b7f-faaf63e81bdf)
-
-  
-
+  <img src="https://github.com/user-attachments/assets/511ce54d-7166-4ccb-9e00-a4de248170b1" alt="final drawio">
 </details>
+
 
 <!-- Fourth Section -->
 ## Working
 <details>
   <summary>Detail</summary>
 
-  > Explain how your model works with the help of a functional table (compulsory) followed by the flowchart.
+### Module Functional Table:
+
+| Module                | Input Signals                        | Output Signals               | Operation / Description                                                                                                                                 |
+|-----------------------|--------------------------------------|------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
+| FullAdder Dataflow     | a, b, cin (1-bit each)               | sum, cout (1-bit each)        | Performs the sum of three 1-bit inputs: sum = a ^ b ^ cin, cout = (a & b) | (cin & (a ^ b))                                                              |
+| LogicalAdder Dataflow  | a, b (32-bit)                        | sum (32-bit)                  | Performs 32-bit addition using full adders.                                                                                                             |
+| GateLevel Multiplier   | A, B (32-bit)                        | Product (32-bit)              | Computes the product of two 32-bit inputs using gate-level logic.                                                                                       |
+| mag_comp 8bit          | a[7:0], b[7:0] (8-bit)               | p, r, q (1-bit each)          | Compares two 8-bit inputs: p = a < b, r = a > b, q = a == b.                                                                                             |
+| D Flip Flop            | D, clk, rst (1-bit each)             | Q (1-bit)                     | A D flip-flop that stores data on the rising edge of the clock or resets asynchronously.                                                                 |
+| Register 16            | D[15:0], clk, rst (16-bit data, clk) | Q[15:0]                       | Stores 16-bit input data and provides it as output on the next clock cycle, with reset functionality.                                                   |
+| HeartRate Comparator   | hr_input (8-bit)                     | hr_classification (2-bit)     | Classifies heart rate into safe, warning, or emergency zones.                                                                                           |
+| Workout Intensity Comp | avg_heart_rate (32-bit)              | workout_intensity (2-bit)     | Classifies workout intensity based on average heart rate into warmup, fat burn, or intense cardio.                                                      |
+
+### StepCalculatorDataflow Truth Table:
+
+| Cycle | hr_input | steps_per_second | stride_length | valid_input | total_steps |
+|-------|----------|------------------|---------------|-------------|-------------|
+| 1     | 130      | 3                | 80            | 1           | 3           |
+| 2     | 140      | 2                | 80            | 1           | 5           |
+| 3     | 160      | 4                | 80            | 1           | 9           |
+| 4     | 180      | 3                | 80            | 1           | 12          |
+| 5     | 200      | 3                | 80            | 1           | 15          |
+
+| Total Distance (cm) | Time Elapsed (s) | Heart Rate Classification | Max Heart Rate |
+|---------------------|------------------|---------------------------|----------------|
+| 240                 | 1                | Safe (00)                  | 130            |
+| 400                 | 2                | Safe (00)                  | 140            |
+| 720                 | 3                | Warning (01)               | 160            |
+| 960                 | 4                | Warning (01)               | 180            |
+| 1200                | 5                | Emergency (10)             | 200            |
+
+| Total Calories (kcal) | Average Heart Rate | Speed (cm/s) |
+|-----------------------|--------------------|--------------|
+| 1.95                  | 130                | 240          |
+| 5.1                   | 135                | 200          |
+| 11.4                  | 143.3              | 240          |
+| 21.0                  | 152.5              | 240          |
+| 33.0                  | 162                | 240          |
+
 </details>
 
 <!-- Fifth Section -->
@@ -95,11 +128,514 @@
 <details>
   <summary>Detail</summary>
 
-  > Neatly update the Verilog code in code style only.
-</details>
+  > Main Code.
+
+  ```verilog
+  module FullAdderGateLevel (
+    input a,
+    input b,
+    input cin,
+    output sum,
+    output cout
+);
+    wire xor_ab, and_ab, and_cin_xor_ab;
+
+    // XOR gates for sum
+    xor (xor_ab, a, b);       // First XOR for a and b
+    xor (sum, xor_ab, cin);   // Second XOR with cin to get sum
+
+    // AND and OR gates for carry out
+    and (and_ab, a, b);                     // AND gate for a and b
+    and (and_cin_xor_ab, cin, xor_ab);      // AND gate for cin and (a ^ b)
+    or (cout, and_ab, and_cin_xor_ab);      // OR gate for carry out
+endmodule
+
+
+module LogicalAdderGateLevel (
+    input [31:0] a,
+    input [31:0] b,
+    output [31:0] sum
+);
+    wire [31:0] carry;  // Carry outputs from the full adders
+
+    // Instantiate the first Full Adder (Least Significant Bit)
+    FullAdderGateLevel fa0 (
+        .a(a[0]),
+        .b(b[0]),
+        .cin(1'b0),       // Initial carry input is 0
+        .sum(sum[0]),
+        .cout(carry[0])
+    );
+
+    genvar i;
+    generate
+        for (i = 1; i < 32; i = i + 1) begin: adder_chain
+            // Instantiate a Full Adder for each bit
+            FullAdderGateLevel fa (
+                .a(a[i]),
+                .b(b[i]),
+                .cin(carry[i-1]), // Previous carry
+                .sum(sum[i]),
+                .cout(carry[i])
+            );
+        end
+    endgenerate
+endmodule
+
+module GateLevelMultiplierDataflow (
+    input [31:0] A,               // 32-bit multiplicand
+    input [31:0] B,               // 32-bit multiplier
+    output [63:0] Product         // 64-bit product (to accommodate overflow)
+);
+    wire [31:0] partial_product[31:0]; // Array to hold partial products
+    wire [63:0] sum[31:0];          // Array to hold intermediate sums
+
+    genvar i, j;
+
+    // Generate partial products (AND operation)
+    generate
+        for (i = 0; i < 32; i = i + 1) begin: partial_product_generation
+            for (j = 0; j < 32; j = j + 1) begin: generate_partial_products
+                assign partial_product[i][j] = A[j] & B[i];  // AND operation for each bit
+            end
+        end
+    endgenerate
+
+    // Initialize the first sum with the first partial product
+    assign sum[0] = {32'b0, partial_product[0]}; // Zero-extend to match the sum width
+
+    // Dataflow modeling for summing partial products
+    generate
+        for (i = 1; i < 32; i = i + 1) begin: summation_loop
+            assign sum[i] = {32'b0, partial_product[i]} + sum[i-1];  // Zero-extend and sum
+        end
+    endgenerate
+
+    assign Product = sum[31];  // Final product output
+endmodule
+
+
+// 8-bit Comparator using Gate Level Modeling
+module comparator_8bit_dataflow (
+    input [7:0] A,          // 8-bit input A
+    input [7:0] B,          // 8-bit input B
+    output A_greater,       // Output high if A > B
+    output A_less,          // Output high if A < B
+    output A_equal          // Output high if A == B
+);
+    wire [7:0] eq;          // Wire array for equality checks
+    wire [7:0] greater;     // Intermediate wire for greater checks
+    wire [7:0] less;        // Intermediate wire for less checks
+
+    // Equality logic using XNOR gates
+    genvar i;
+    generate
+        for (i = 0; i < 8; i = i + 1) begin: equality_check
+            xnor u_eq(eq[i], A[i], B[i]); // A[i] XNOR B[i] for equality check
+        end
+    endgenerate
+
+    assign A_equal = &eq; // A is equal to B if all bits are equal
+
+    // Less than logic
+    assign A_less = (~A[7] & B[7]) |                  // Case: MSB A < B
+                    (eq[7] & ~A[6] & B[6]) |         // Case: 2nd MSB A < B
+                    (eq[7] & eq[6] & ~A[5] & B[5]) | // Case: 3rd MSB A < B
+                    (eq[7] & eq[6] & eq[5] & ~A[4] & B[4]) |
+                    (eq[7] & eq[6] & eq[5] & eq[4] & ~A[3] & B[3]) |
+                    (eq[7] & eq[6] & eq[5] & eq[4] & eq[3] & ~A[2] & B[2]) |
+                    (eq[7] & eq[6] & eq[5] & eq[4] & eq[3] & eq[2] & ~A[1] & B[1]) |
+                    (eq[7] & eq[6] & eq[5] & eq[4] & eq[3] & eq[2] & eq[1] & ~A[0] & B[0]);
+
+    // Greater than logic
+    assign A_greater = (A[7] & ~B[7]) |                // Case: MSB A > B
+                       (eq[7] & A[6] & ~B[6]) |      // Case: 2nd MSB A > B
+                       (eq[7] & eq[6] & A[5] & ~B[5]) |
+                       (eq[7] & eq[6] & eq[5] & A[4] & ~B[4]) |
+                       (eq[7] & eq[6] & eq[5] & eq[4] & A[3] & ~B[3]) |
+                       (eq[7] & eq[6] & eq[5] & eq[4] & eq[3] & A[2] & ~B[2]) |
+                       (eq[7] & eq[6] & eq[5] & eq[4] & eq[3] & eq[2] & A[1] & ~B[1]) |
+                       (eq[7] & eq[6] & eq[5] & eq[4] & eq[3] & eq[2] & eq[1] & A[0] & ~B[0]);
+endmodule
+
+
+// Heart Rate Comparator using Gate Level Modeling
+module HeartRateComparatorDataflow (
+    input [7:0] hr_input,          // 8-bit heart rate input
+    output [1:0] hr_classification  // 2-bit heart rate classification
+);
+    wire A_greater_150, A_less_150, A_equal_150;
+    wire A_greater_180, A_less_180, A_equal_180;
+
+    // Instantiate 8-bit comparators to compare with 150 and 180
+    comparator_8bit_dataflow comp150 (
+        .A(hr_input),
+        .B(8'd150),
+        .A_greater(A_greater_150),
+        .A_less(A_less_150),
+        .A_equal(A_equal_150)
+    );
+
+    comparator_8bit_dataflow comp180 (
+        .A(hr_input),
+        .B(8'd180),
+        .A_greater(A_greater_180),
+        .A_less(A_less_180),
+        .A_equal(A_equal_180)
+    );
+
+    // Determine heart rate classification
+    assign hr_classification = 
+        A_less_150 ? 2'b00 :  // Safe (less than 150)
+        A_less_180 ? 2'b01 :  // Warning (between 150 and 180)
+                     2'b10;   // Emergency (greater than or equal to 180)
+endmodule
+
+
+// Workout Intensity Comparator using Gate Level Modeling
+module WorkoutIntensityComparatorDataflow (
+    input [31:0] avg_heart_rate,      // 32-bit average heart rate input
+    output [1:0] workout_intensity     // 2-bit workout intensity classification
+);
+    wire A_greater_120, A_less_120, A_equal_120;
+    wire A_greater_160, A_less_160, A_equal_160;
+
+    // Instantiate 8-bit comparators to compare with 120 and 160
+    comparator_8bit_dataflow comp120 (
+        .A(avg_heart_rate[7:0]),  // Use the lower 8 bits for comparison
+        .B(8'd120),
+        .A_greater(A_greater_120),
+        .A_less(A_less_120),
+        .A_equal(A_equal_120)
+    );
+
+    comparator_8bit_dataflow comp160 (
+        .A(avg_heart_rate[7:0]),  // Use the lower 8 bits for comparison
+        .B(8'd160),
+        .A_greater(A_greater_160),
+        .A_less(A_less_160),
+        .A_equal(A_equal_160)
+    );
+
+    // Determine workout intensity
+    assign workout_intensity = 
+        A_less_120 ? 2'b00 :  // WARMUP
+        A_less_160 ? 2'b01 :  // FAT BURN
+                     2'b10;   // INTENSE CARDIO
+endmodule
+
+
+// Step Calculator using Gate Level Modeling
+module StepCalculatorDataflow (
+    input wire clk,                   // Clock input
+    input wire rst,                   // Reset input
+    input wire [7:0] hr_input,       // Heart rate input
+    input wire [1:0] steps_per_second,// Steps taken per second
+    input wire [7:0] stride_length,   // Length of each stride
+    input wire valid_input,           // Flag for valid input
+    output reg [15:0] total_steps,    // Total steps counter
+    output reg [31:0] total_distance,  // Total distance covered
+    output reg [31:0] distance_per_second, // Distance covered per second
+    output reg [7:0] time_elapsed,    // Time elapsed in seconds
+    output wire [1:0] heart_rate_classification, // Heart rate classification
+    output reg [7:0] max_heart_rate,  // Maximum heart rate recorded
+    output reg [31:0] total_calories,  // Total calories burned
+    output reg [31:0] average_heart_rate, // Average heart rate
+    output wire [1:0] workout_intensity, // Workout intensity classification
+    output reg [15:0] speed           // Current speed
+);
+
+    reg [31:0] heart_rate_sum;        // Sum of heart rates for average calculation
+    reg [7:0] heart_rate_count;       // Count of heart rate samples
+    reg [7:0] time_counter;           // Counter for elapsed time in seconds
+    wire [31:0] distance_this_second; // Distance covered in the current second
+    wire [31:0] calories_this_second; // Calories burned in the current second
+
+    // Dataflow modeling for distance and calories calculation
+    assign distance_this_second = steps_per_second * stride_length; // Calculate distance this second
+    assign calories_this_second = distance_this_second * 50;  // Assuming 50 calories burned per unit distance
+
+    // Heart rate and workout intensity classification
+    HeartRateComparatorDataflow hr_comparator (
+        .hr_input(hr_input),
+        .hr_classification(heart_rate_classification)
+    );
+
+    WorkoutIntensityComparatorDataflow workout_intensity_comparator (
+        .avg_heart_rate(average_heart_rate),
+        .workout_intensity(workout_intensity)
+    );
+
+    always @(posedge clk or posedge rst) begin
+        if (rst) begin
+            total_steps <= 0;
+            total_distance <= 0;
+            distance_per_second <= 0;
+            time_counter <= 0;
+            time_elapsed <= 0;
+            max_heart_rate <= 0;
+            total_calories <= 0;
+            average_heart_rate <= 0;
+            heart_rate_sum <= 0;
+            heart_rate_count <= 0;
+            speed <= 0;
+        end else if (valid_input) begin
+            total_steps <= total_steps + steps_per_second;  // Update total steps
+            total_distance <= total_distance + distance_this_second;  // Update total distance
+            total_calories <= total_calories + calories_this_second;  // Update total calories
+
+            // Heart rate tracking
+            if (hr_input > max_heart_rate)
+                max_heart_rate <= hr_input;  // Update max heart rate if current input is greater
+
+            heart_rate_sum <= heart_rate_sum + hr_input; // Accumulate heart rate
+            heart_rate_count <= heart_rate_count + 1;     // Increment heart rate sample count
+            average_heart_rate <= heart_rate_sum / heart_rate_count; // Calculate average heart rate
+
+            // Time tracking
+            time_counter <= time_counter + 1;             // Increment time counter
+            time_elapsed <= time_counter;                  // Update elapsed time
+
+            // Speed calculation (distance / time)
+            if (time_elapsed > 0)
+                speed <= total_distance / time_elapsed;   // Calculate speed
+            else
+                speed <= 0;                               // Set speed to 0 if no time has elapsed
+        end
+    end
+endmodule
+
+// Heart Rate and Step Comparator using Comparator Modules
+module HeartRateAndStepComparator(
+    input [7:0] hr_input,           // Current heart rate
+    input [7:0] previous_hr,        // Previous heart rate
+    input [1:0] steps_input,        // Current steps per second
+    input [1:0] previous_steps,     // Previous steps per second
+    output [1:0] hr_comparison,     // 2'b00: same, 2'b01: higher, 2'b10: lower
+    output step_feedback            // 1: "Good", 0: "Go Faster"
+);
+    wire A_greater_hr, A_less_hr, A_equal_hr;
+    wire A_greater_steps, A_less_steps, A_equal_steps;
+
+    // Compare heart rates using the 8-bit comparator
+    comparator_8bit_dataflow hr_comp (
+        .A(hr_input),
+        .B(previous_hr),
+        .A_greater(A_greater_hr),
+        .A_less(A_less_hr),
+        .A_equal(A_equal_hr)
+    );
+
+    // Compare steps per second using the 8-bit comparator
+    comparator_8bit_dataflow steps_comp (
+        .A({6'b0, steps_input}),           // Zero extend steps_input to match bit-width
+        .B({6'b0, previous_steps}),        // Zero extend previous_steps to match bit-width
+        .A_greater(A_greater_steps),
+        .A_less(A_less_steps),
+        .A_equal(A_equal_steps)
+    );
+
+    // Determine heart rate comparison
+    assign hr_comparison = A_greater_hr ? 2'b01 : 
+                           A_less_hr ? 2'b10 : 
+                           2'b00;  // Same
+
+    // Determine step feedback: 1 if steps are good (greater or equal), 0 if faster needed
+    assign step_feedback = (A_greater_steps | A_equal_steps);
+endmodule
+
+
+
+
+```
+  > Testbench Code.
+```verilog
+// Testbench for Step Calculator and Comparator
+module step_calculator_tb;
+
+    reg clk;
+    reg rst;
+    reg [7:0] hr_input;
+    reg [1:0] steps_per_second;
+    reg [7:0] stride_length;
+    reg valid_input;
+    wire [15:0] total_steps;
+    wire [31:0] total_distance;
+    wire [7:0] time_elapsed;
+    wire [1:0] heart_rate_classification;
+    wire [7:0] max_heart_rate;
+    wire [31:0] total_calories;
+    wire [31:0] average_heart_rate;
+    wire [1:0] workout_intensity;
+    reg [7:0] previous_hr;          // Previous heart rate for comparison
+    reg [1:0] previous_steps;       // Previous steps per second for comparison
+    wire [1:0] hr_comparison;       // Output from comparison (higher, lower)
+    wire step_feedback;             // Output from comparison (good or go faster)
+    real speed;
+
+    // Instantiate the StepCalculatorDataflow module
+    StepCalculatorDataflow uut (
+        .clk(clk),
+        .rst(rst),
+        .hr_input(hr_input),
+        .steps_per_second(steps_per_second),
+        .stride_length(stride_length),
+        .valid_input(valid_input),
+        .total_steps(total_steps),
+        .total_distance(total_distance),
+        .time_elapsed(time_elapsed),
+        .heart_rate_classification(heart_rate_classification),
+        .max_heart_rate(max_heart_rate),
+        .total_calories(total_calories),
+        .average_heart_rate(average_heart_rate),
+        .workout_intensity(workout_intensity)
+    );
+
+    // Instantiate the HeartRateAndStepComparator module
+    HeartRateAndStepComparator comparator (
+        .hr_input(hr_input),
+        .previous_hr(previous_hr),
+        .steps_input(steps_per_second),
+        .previous_steps(previous_steps),
+        .hr_comparison(hr_comparison),
+        .step_feedback(step_feedback)
+    );
+
+    // Clock signal generation
+    always #5 clk = ~clk;  // 100 MHz clock, period = 10 time units
+
+    // Function to convert classification to text
+    function [8*10:0] classification_to_text;
+        input [1:0] classification;
+        begin
+            case (classification)
+                2'b00: classification_to_text = "Safe";
+                2'b01: classification_to_text = "Warning";
+                2'b10: classification_to_text = "Emergency";
+                default: classification_to_text = "Unknown";
+            endcase
+        end
+    endfunction
+
+    // Function to convert workout intensity to text
+    function [8*20:0] workout_intensity_to_text;
+        input [1:0] intensity;
+        begin
+            case (intensity)
+                2'b00: workout_intensity_to_text = "Warmup";
+                2'b01: workout_intensity_to_text = "Fat Burn";
+                2'b10: workout_intensity_to_text = "Intense Cardio";
+                default: workout_intensity_to_text = "Unknown Intensity";
+            endcase
+        end
+    endfunction
+
+    // Display function for heart rate comparison
+    function [8*20:0] hr_comparison_text;
+        input [1:0] comparison;
+        begin
+            case (comparison)
+                2'b00: hr_comparison_text = "Same";
+                2'b01: hr_comparison_text = "Higher";
+                2'b10: hr_comparison_text = "Lower";
+                default: hr_comparison_text = "Unknown";
+            endcase
+        end
+    endfunction
+
+    integer i;  // Loop counter
+    reg direction_hr;  // To keep track of heart rate increment or decrement
+    reg [2:0] step_pattern_index;  // Step pattern index to cycle through 1 2 3 4 3 2
+
+    initial begin
+        // Initialize signals
+        clk = 0;
+        rst = 1;
+        hr_input = 120;
+        valid_input = 0;
+        stride_length = 75;  // Set stride length to 75 cm
+        direction_hr = 1;  // Start with heart rate incrementing
+        step_pattern_index = 0;  // Start with the first pattern index
+        previous_hr = 120;
+        previous_steps = 2;
+
+        // Reset the system
+        #10;
+        rst = 0;
+
+        // Loop through 20 cycles of incrementing and decrementing heart rate and steps
+        for (i = 0; i < 20; i = i + 1) begin
+            #10;
+            // Adjust heart rate incrementally
+            if (direction_hr) begin
+                hr_input = hr_input + 10;
+                if (hr_input >= 170) direction_hr = 0;  // Start decrementing after reaching 170
+            end else begin
+                hr_input = hr_input - 10;
+                if (hr_input <= 120) direction_hr = 1;  // Start incrementing after reaching 120
+            end
+
+            // Steps per second pattern: 2 3 4 3 2
+            case (step_pattern_index)
+                0: steps_per_second = 2;
+                1: steps_per_second = 3;
+                2: steps_per_second = 4;
+                3: steps_per_second = 3;
+                4: steps_per_second = 2;
+            endcase
+
+            // Move to the next step pattern
+            step_pattern_index = step_pattern_index + 1;
+            if (step_pattern_index > 4)
+                step_pattern_index = 0;  // Loop back to start of the pattern
+
+            valid_input = 1;
+            
+            #5;  // Wait for the input to be processed
+
+            // Print heart rate comparison and step feedback
+            $display("Heart Rate: %d, Previous HR: %d, Comparison: %s", hr_input, previous_hr, hr_comparison_text(hr_comparison));
+            $display("Steps Per Second: %d, Previous Steps: %d, Feedback: %s", steps_per_second, previous_steps, (step_feedback ? "Good" : "Go Faster"));
+
+            // Update previous values for next cycle
+            previous_hr = hr_input;
+            previous_steps = steps_per_second;
+
+            #5; valid_input = 0;  // Deactivate valid input for the next cycle
+        end
+
+        // Calculate speed (distance in cm / time in seconds) after the loop ends
+        if (time_elapsed > 0) begin
+            speed = total_distance / time_elapsed;
+        end else begin
+            speed = 0;
+        end
+
+        // Final results
+        $display("Final Results:");
+        $display("Total Steps: %d", total_steps);
+        $display("Total Distance: %d cm", total_distance);
+        $display("Time Elapsed: %d seconds", time_elapsed);
+        $display("Max Heart Rate: %d", max_heart_rate);
+        $display("Total Calories: %d", total_calories);
+        $display("Average Heart Rate: %d", average_heart_rate);
+        $display("Speed: %f cm/s", speed);
+        $display("Workout Intensity: %s", workout_intensity_to_text(workout_intensity));
+
+        // Stop the simulation
+        $finish;
+    end
+endmodule
+```
+
+</details> 
 
 ## References
 <details>
   <summary>Detail</summary>
+
+  > 1. https://www.rei.com/learn/expert-advice/how-to-train-with-a-heart-rate-monitor.html
+  > 2. https://tinyurl.com/heartrateinfo
+  > 3. https://www.runnersneed.com/expert-advice/gear-guides/running-watch-buying-guide.html
 
 </details>
