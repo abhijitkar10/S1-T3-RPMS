@@ -1,4 +1,3 @@
-![S1-T3 drawio (2)](https://github.com/user-attachments/assets/4a7190b6-b1a0-4417-b117-7ba7d66d65e7)![S1-T3 drawio (2)](https://github.com/user-attachments/assets/8ee08f67-6fb7-462c-9be2-f82ae8846325)# Runner's Performance Measuring System
 
 <!-- First Section -->
 ## Team Details
@@ -64,7 +63,7 @@
 <!-- Third Section -->
 ## Functional Block Diagram
 <details>
-  <summary>Click to view the image</summary>
+  <summary>Detail</summary>
 
   ![S1-T3 drawio (2)](https://github.com/user-attachments/assets/bb8c1ee6-9e70-48a7-bb97-61a31b19ca7a)
 
@@ -75,6 +74,10 @@
 ## Working
 <details>
   <summary>Detail</summary>
+  
+### State Diagram:
+![S1-T3 drawio (2)](https://github.com/user-attachments/assets/296347c7-49a8-4891-8baa-6079ddae92eb)
+
 
 ### Module Functional Table:
 
@@ -123,16 +126,22 @@
   <summary>Detail</summary>
 
   > logisim circuit diagram module.
+  >MAIN MODULE
 
   ![1](https://github.com/user-attachments/assets/146268a9-1562-4f34-af0d-500d2ce66957)
+  >PERFORMANCE EVALUATOR
   
   ![2](https://github.com/user-attachments/assets/4473842c-68ed-47c2-a61b-b38e237816bf)
+  >HEART RATE GENERATOR
   
   ![3](https://github.com/user-attachments/assets/afa67681-6d7c-4775-9cc8-dbbe36c86ce7)
+  >STEP GENERATOR
   
   ![4](https://github.com/user-attachments/assets/59d32feb-87b6-4b39-bc9e-6e0ad6c29f38)
+  >AVERAGE AND CALORIES
   
   ![5](https://github.com/user-attachments/assets/173f1edf-0173-4f80-bc17-775229d6f85a)
+  >TRAINER
   
   ![6](https://github.com/user-attachments/assets/e91bd3a0-5d90-4e44-8c08-75a393c925fd)
 
