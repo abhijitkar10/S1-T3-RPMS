@@ -48,7 +48,10 @@
 
     3. **Time Monitoring System:** It includes a stopwatch that activates when the athlete starts their activity. This stopwatch is vital, as multiple components in the system depend on it. It continuously tracks the duration of the workout and is essential for calculating key performance metrics, including speed, distance covered, and calories burned. Its integration ensures real-time accuracy and consistency, supporting other features like heartbeat monitoring and the pedometer. This allows athletes to receive precise feedback on their performance and make informed adjustments during their sessions.
 
-    4. **Alarm System:** An integrated alarm system is triggered when the heart rate enters the red state. This alarm acts as a critical safety feature, alerting the athlete to take immediate action to prevent potential health risks.
+    4.  **Progress Evaluator:** Compares the athlete’s current session performance with data from previous sessions. This feature
+  shows whether the athlete’s performance has improved or declined, helping them adjust their training for better results over
+    time.
+  
 
     5. **End of Session Summary:** At the conclusion of each workout session, the system provides a comprehensive end-of-session summary. This summary includes:
     - Average heartbeat
