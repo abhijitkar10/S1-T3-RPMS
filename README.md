@@ -84,7 +84,8 @@
 
      
 </details>
-
+<details>
+  <summary>Detail</summary>
   
 ### State Diagram:
 
