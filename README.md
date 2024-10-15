@@ -82,33 +82,7 @@
       different classifications based on the user’s performance. Upon completion of the run, the final results are displayed, providing a
       comprehensive overview of the runner’s performance.
 
-      <!-- Detailed Module Descriptions -->
-      1. STOP WATCH (TIME MONITORING SYSTEM):  
-         This module governs the working of the entire circuit. It is enabled when the runner starts running and is triggered off once the run is completed.
-         This system consists of the following sub-modules:  
-         - a. Timer Module: Utilizes mod-10 and mod-6 counters to calculate the time elapsed in hours, minutes, and seconds.  
-         - b. Timer Display Module: Contains 7-segment display decoders and converters, which present the elapsed time in a user-friendly format.
-
-      2. HEART RATE MONITORING SYSTEM:  
-         - a. Heart Rate Generator Module: This module acts as a substitute for a physical heart rate sensor. It generates unique heart rate values every second using a specific logic, which are then fed into the system as input.  
-         - b. Average Heart Rate and Calories Burnt Module: This module uses combinational circuits to calculate two key metrics: average heart rate and calories burnt.  
-           - For calories burnt, we devised a unique formula that closely mirrors real-world values, with calculations based on the average heart rate:  
-           - Calories Burnt = Average Heart Rate * Time Elapsed * Constant (constant = 0.0015)
-         - c. Performance Evaluator: This module offers a crucial feature by evaluating the runner's performance, comparing the current heart rate to heart rate values recorded during previous runs. After the runner completes a session, the instantaneous heart rate values are stored in a set of registers governed by specific logic. During subsequent runs, the current heart rate is compared to the previously stored values. The registers are updated each time a run is completed.  
-         - d. Peak Heart Rate: The system continuously updates the maximum heart rate recorded during the run.
-
-         There are two types of classifications:  
-         1. Based on instantaneous heart rate.  
-         2. Based on average heart rate.
-
-      3. PEDOMETER:  
-         This module calculates various parameters based on the runner's steps per second and offers the runner the option to select the type of run they want to perform.  
-         - a. Step Generator: This module serves as a replacement for a step sensor, generating unique step values every second using specific logic, which are then passed as input steps per second to the system.  
-         - b. Speed and Distance Module: Utilizes combinational circuits to perform arithmetic calculations for determining the runner’s speed and distance covered.  
-         - c. Trainer Module: Compares the runner’s current speed with the desired speed (indicated by the input of the selected run type) and provides real-time feedback, instructing the runner to either go faster or slow down to achieve the desired performance.
-
-      4. DISPLAY MODULES:  
-         This system consists of modules that convert binary values into BCD format. The BCD values are then processed by 7-segment display decoders, which output the data in decimal form. This feature greatly simplifies user interaction, as reading binary values can often be challenging.
+     
 </details>
 
   
