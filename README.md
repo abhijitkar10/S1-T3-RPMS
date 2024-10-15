@@ -71,7 +71,6 @@
 
 
 <!-- Fourth Section -->
-
 ## Working
 <details>
   <summary>Detail</summary>
@@ -81,6 +80,7 @@
       the various modules, each responsible for specific functionalities and calculations. These modules process the data to generate
       different classifications based on the user’s performance. Upon completion of the run, the final results are displayed, providing a
       comprehensive overview of the runner’s performance.
+      
 
      
 </details>
