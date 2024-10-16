@@ -138,7 +138,7 @@ module LogicalAdderGate (
     endgenerate
 endmodule
 
-// 32-bit Multiplier Dataflow Implementation
+// 32-bit Multiplier GateLevel Implementation
 module GateLevelMultiplierDataflow (
     input [31:0] A,    // 32-bit multiplicand
     input [31:0] B,    // 32-bit multiplier
@@ -256,28 +256,28 @@ module mag_comp8bit (
 
 endmodule
 
-// Heart Rate Comparator Dataflow Implementation
+// Heart Rate Comparator  Implementation
 module HeartRateComparatorDataflow (
     input [7:0] hr_input,
     output [1:0] hr_classification
 );
-    // Dataflow modeling for heart rate classification
+    //  modeling for heart rate classification
     assign hr_classification = (hr_input <= 150) ? 2'b00 :
                                (hr_input <= 180) ? 2'b01 : 2'b10;  // Safe, Warning, Emergency
 endmodule
 
-// Workout Intensity Comparator Dataflow
+// Workout Intensity Comparator
 module WorkoutIntensityComparatorDataflow (
     input [31:0] avg_heart_rate,
     output [1:0] workout_intensity
 );
-    // Dataflow modeling for workout intensity
+    //  modeling for workout intensity
     assign workout_intensity = (avg_heart_rate < 120) ? 2'b00 :   // WARMUP
                                (avg_heart_rate <= 160) ? 2'b01 :  // FAT BURN
                                2'b10;  // INTENSE CARDIO
 endmodule
 
-// Step Calculator Dataflow
+// Step Calculator 
 module StepCalculatorDataflow (
     input wire clk,
     input wire rst,
@@ -303,7 +303,7 @@ module StepCalculatorDataflow (
     wire [31:0] distance_this_second;
     wire [31:0] calories_this_second;
 
-    // Dataflow modeling for distance and calories
+    //  modeling for distance and calories
     assign distance_this_second = steps_per_second * stride_length;
     assign calories_this_second = (15 * time_elapsed * average_heart_rate) / 8000;  // Based on time and avg HR
 
@@ -332,7 +332,7 @@ module StepCalculatorDataflow (
             heart_rate_count <= 0;
             speed <= 0;
         end else if (valid_input) begin
-            total_steps <= total_steps + steps_per_second;  // Dataflow addition for steps
+            total_steps <= total_steps + steps_per_second;  //  addition for steps
             total_distance <= total_distance + distance_this_second;  // Update distance
             total_calories <= calories_this_second;  // Update calories
 
@@ -427,5 +427,3 @@ module TimeElapsedCounter(
     assign next_value = (reset_condition) ? 6'b000000 : next_value;
 
 endmodule
-
-
