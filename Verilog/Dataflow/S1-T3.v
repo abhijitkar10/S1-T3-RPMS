@@ -1,4 +1,4 @@
-module FlipFlop (
+module D_FlipFlop (
     input D,         // Data input
     input clk,       // Clock input
     input rst,       // Reset input
@@ -227,31 +227,7 @@ module mag_comp8bit (
 
 endmodule
 
-module D_FlipFlop (
-    input D,       // Data input
-    input clk,     // Clock input
-    input rst,     // Reset input
-    output reg Q   // Output Q
-);
-    // Internal signals
-    wire D_nand_clk, not_D_nand_clk;
-    wire S, R;
 
-    // NAND gates for D input and clock
-    nand (D_nand_clk, D, clk);       // D AND clk (through NAND)
-    nand (not_D_nand_clk, ~D, clk);  // ~D AND clk (through NAND)
-
-    // Set and Reset (S-R) latch
-    nand (S, D_nand_clk, R);         // Set input to the latch
-    nand (R, not_D_nand_clk, S);     // Reset input to the latch
-
-    always @(posedge clk or posedge rst) begin
-        if (rst)
-            Q <= 0;                  // Reset flip-flop
-        else
-            Q <= S;                  // Set output based on S-R latch
-    end
-endmodule
 module Register16 (
     input [15:0] D,   // 16-bit data input
     input clk,        // Clock input
