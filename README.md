@@ -264,11 +264,11 @@ The Submodules for STOP WATCH and DISPLAYING
 
 
 </details>
-<!-- Sixth Section -->
+
+<!-- Fifth Section -->
 ## Verilog Code
 <details>
   <summary>Detail</summary>
-
   > Main Code.
 
   ```verilog
