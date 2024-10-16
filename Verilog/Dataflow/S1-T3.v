@@ -1,15 +1,104 @@
+module FlipFlop (
+    input D,         // Data input
+    input clk,       // Clock input
+    input rst,       // Reset input
+    output Q         // Output Q
+);
+    wire not_clk, not_rst, D_clk;
+
+    // Invert the clock and reset
+    assign not_clk = ~clk;
+    assign not_rst = ~rst;
+
+    // Logic to determine the output Q
+    assign D_clk = (D & clk) | (not_clk & Q);
+
+    // Reset logic
+    assign Q = (not_rst) ? D_clk : 1'b0; // Output is D_clk unless rst is high
+endmodule
+
+
+// Clock Divider for generating 1 Hz from 50 MHz clock
+module ClockDivider(
+    input clk,       // Input clock
+    input rst,       // Reset input
+    output reg clk_out  // Output clock (1 Hz)
+);
+    reg [25:0] counter;  // 26-bit counter to divide clock
+
+    always @(posedge clk or posedge rst) begin
+        if (rst) begin
+            counter <= 26'b0;
+            clk_out <= 0;
+        end else if (counter == 26'd50_000_000 - 1) begin
+            counter <= 26'b0;
+            clk_out <= ~clk_out;  // Toggle clock output every 50 million cycles (1 second for 50 MHz)
+        end else begin
+            counter <= counter + 1;
+        end
+    end
+endmodule
+
+// Stopwatch Module using FlipFlops
+module Stopwatch(
+    input clk,        // System clock (50 MHz assumed)
+    input rst,        // Reset input
+    output [5:0] sec, // Seconds counter (0-59)
+    output [5:0] min  // Minutes counter (0-59)
+);
+    wire clk_1hz;  // 1 Hz clock for seconds
+    wire [5:0] sec_next, min_next; // Wires for next second and minute values
+
+    // Clock divider to generate 1 Hz clock
+    ClockDivider clk_divider (
+        .clk(clk),
+        .rst(rst),
+        .clk_out(clk_1hz)
+    );
+
+    // Flip-flops for seconds
+    FlipFlop ff_sec0 (.D(sec_next[0]), .clk(clk_1hz), .rst(rst), .Q(sec[0]));
+    FlipFlop ff_sec1 (.D(sec_next[1]), .clk(clk_1hz), .rst(rst), .Q(sec[1]));
+    FlipFlop ff_sec2 (.D(sec_next[2]), .clk(clk_1hz), .rst(rst), .Q(sec[2]));
+    FlipFlop ff_sec3 (.D(sec_next[3]), .clk(clk_1hz), .rst(rst), .Q(sec[3]));
+    FlipFlop ff_sec4 (.D(sec_next[4]), .clk(clk_1hz), .rst(rst), .Q(sec[4]));
+    FlipFlop ff_sec5 (.D(sec_next[5]), .clk(clk_1hz), .rst(rst), .Q(sec[5]));
+
+    // Flip-flops for minutes
+    FlipFlop ff_min0 (.D(min_next[0]), .clk(clk_1hz), .rst(rst), .Q(min[0]));
+    FlipFlop ff_min1 (.D(min_next[1]), .clk(clk_1hz), .rst(rst), .Q(min[1]));
+    FlipFlop ff_min2 (.D(min_next[2]), .clk(clk_1hz), .rst(rst), .Q(min[2]));
+    FlipFlop ff_min3 (.D(min_next[3]), .clk(clk_1hz), .rst(rst), .Q(min[3]));
+    FlipFlop ff_min4 (.D(min_next[4]), .clk(clk_1hz), .rst(rst), .Q(min[4]));
+    FlipFlop ff_min5 (.D(min_next[5]), .clk(clk_1hz), .rst(rst), .Q(min[5]));
+
+    // Logic for next second and minute values
+    assign sec_next = (sec == 59) ? 0 : sec + 1;  // Reset seconds to 0 when reaching 59
+    assign min_next = (sec == 59) ? ((min == 59) ? 0 : min + 1) : min;  // Increment minutes when seconds reset
+endmodule
 // Full Adder Dataflow Implementation
-module FullAdderDataflow (
-    input a,
-    input b,
+
+
+module BitAdder (
+    input [15:0] A,
+    input [15:0] B,
     input cin,
-    output sum,
+    output [15:0] sum,
     output cout
 );
-    // Dataflow modeling for sum and carry out
-    assign sum = a ^ b ^ cin;           // XOR logic for sum
-    assign cout = (a & b) | (cin & (a ^ b));  // Carry out logic
+    wire [15:0] carry;
+
+    FullAdderDataflow fa0 (.a(A[0]), .b(B[0]), .cin(cin),     .sum(sum[0]), .cout(carry[0]));
+    genvar i;
+    generate
+        for (i = 1; i < 16; i = i + 1) begin : adder_chain
+            FullAdderDataflow fa (.a(A[i]), .b(B[i]), .cin(carry[i-1]), .sum(sum[i]), .cout(carry[i]));
+        end
+    endgenerate
+
+    assign cout = carry[15];
 endmodule
+
 
 // 32-bit Logical Adder using Full Adders (Dataflow)
 module LogicalAdderDataflow (
@@ -20,28 +109,44 @@ module LogicalAdderDataflow (
     wire [31:0] carry;
 
     // Dataflow modeling for 32-bit addition
-    assign {carry[30:0], sum[0]} = a[0] + b[0];  // First bit addition
+    assign {carry[30:0], sum[0]} = a[0] ^ b[0];  // First bit sum
+    assign carry[0] = a[0] & b[0];                // First bit carry
+
     genvar i;
     generate
         for (i = 1; i < 32; i = i + 1) begin: full_adder_chain
             // Dataflow modeling for each bit
-            assign {carry[i], sum[i]} = a[i] + b[i] + carry[i-1];
+            assign sum[i] = a[i] ^ b[i] ^ carry[i-1]; // Sum using XOR
+            assign carry[i] = (a[i] & b[i]) | (carry[i-1] & (a[i] ^ b[i])); // Carry logic
         end
     endgenerate
 endmodule
 
+
 // 32-bit Multiplier Dataflow Implementation
+module FullAdderDataflow (
+    input a,          // First input
+    input b,          // Second input
+    input cin,        // Carry input
+    output sum,       // Sum output
+    output cout       // Carry output
+);
+    assign sum = a ^ b ^ cin;          // Sum using XOR
+    assign cout = (a & b) | (cin & (a ^ b)); // Carry using AND and OR
+endmodule
+
 module GateLevelMultiplierDataflow (
     input [31:0] A,    // 32-bit multiplicand
     input [31:0] B,    // 32-bit multiplier
     output [31:0] Product // 32-bit product
 );
     wire [31:0] partial_product[31:0];
-    wire [31:0] sum[31:0];
+    wire [31:0] sum[31:0];       // Wires to hold intermediate sums
+    wire [31:0] carry[31:0];     // Wires to hold intermediate carries
 
     genvar i, j;
 
-    // Dataflow modeling for partial products
+    // Generate partial products using AND gates
     generate
         for (i = 0; i < 32; i = i + 1) begin: partial_product_generation
             for (j = 0; j < 32; j = j + 1) begin: generate_partial_products
@@ -50,17 +155,42 @@ module GateLevelMultiplierDataflow (
         end
     endgenerate
 
-    // Dataflow modeling for summing partial products
+    // Initialize the first row as the first partial product without carry addition
     assign sum[0] = partial_product[0];
+    assign carry[0] = 0;  // No carry in the first row
 
+    // Summing partial products using full adders
     generate
         for (i = 1; i < 32; i = i + 1) begin: summation_loop
-            assign sum[i] = partial_product[i] + sum[i-1];  // Sum using dataflow
+            for (j = 0; j < 32; j = j + 1) begin: full_adder_summation
+                if (j == 0) begin
+                    // Handle the least significant bit (LSB) without carry-in
+                    FullAdderDataflow fa (
+                        .a(partial_product[i][j]),
+                        .b(sum[i-1][j]),
+                        .cin(1'b0),
+                        .sum(sum[i][j]),
+                        .cout(carry[i][j])
+                    );
+                end else begin
+                    // Handle the other bits with carry-in
+                    FullAdderDataflow fa (
+                        .a(partial_product[i][j]),
+                        .b(sum[i-1][j]),
+                        .cin(carry[i][j-1]),  // Carry from previous bit
+                        .sum(sum[i][j]),
+                        .cout(carry[i][j])
+                    );
+                end
+            end
         end
     endgenerate
 
-    assign Product = sum[31];  // Final product output
+    // The final product is the sum of all partial products
+    assign Product = sum[31];
+
 endmodule
+
 
 // 8-bit Comparator using Dataflow
 module mag_comp8bit (
@@ -196,7 +326,7 @@ module StepCalculatorDataflow (
 
     // Dataflow modeling for distance and calories
     assign distance_this_second = steps_per_second * stride_length;
-    assign calories_this_second = (15 * time_elapsed * average_heart_rate) / 1000;  // Based on time and avg HR
+    assign calories_this_second = (15 * time_elapsed * average_heart_rate) / 8000;  // Based on time and avg HR
 
     // Heart rate and workout intensity classification
     HeartRateComparatorDataflow hr_comparator (
