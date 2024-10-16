@@ -1285,7 +1285,6 @@ module HeartRateAndStepComparator(
     end
 endmodule
 ```
-
 </details>
 <details>
 
@@ -1294,7 +1293,8 @@ endmodule
 	
  
 
-  <summary>DATA FLOW TESTBENCH CODE </summary>
+  <summary>DATAFLOW LEVEL TEST BENCH CODE </summary>
+	
  ```verilog
 	
     module step_comparison_tb;
@@ -1465,9 +1465,8 @@ endmodule
         // End simulation
         $finish;
     end
-    endmodule 
-    ```
-
+endmodule 
+```
 </details>
 
 
