@@ -68,7 +68,7 @@
 <details>
   <summary>Detail</summary>
 
-  ![S1-T3 drawio (2)](https://github.com/user-attachments/assets/bb8c1ee6-9e70-48a7-bb97-61a31b19ca7a)
+![Untitled Diagram drawio (4) (1)](https://github.com/user-attachments/assets/785d833a-a684-407d-bc69-eff523959269)
 
 </details>
 
