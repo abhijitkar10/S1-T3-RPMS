@@ -174,7 +174,7 @@ This is the main module of the circuit.
   <summary>MAIN</summary>
 		This is the Main Module which integrates all the submodules to form our runner's performance monitoring system .
 
-  ![MAIN MODULE](https://github.com/user-attachments/assets/7ccc6712-a262-4c4c-8192-e855fb85d3f7)
+![MAIN MODULE](https://github.com/user-attachments/assets/433005a2-aa8d-44f4-93d6-425e3d984978)
 
  </details>
 The submodules of HEART RATE MONITORING COMPONENT  are
