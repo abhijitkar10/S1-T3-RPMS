@@ -45,6 +45,7 @@
       - **Speed Calculation:** Calculates and displays the athlete’s speed in real-time, helping them gauge their pace and make adjustments as needed.
       - **Time Tracking:** Records the duration of the workout, allowing users to analyze their pace and improve their running strategy.
       - **Calories Burnt Calculation and Display:** The system provides an estimate of how many calories the athlete has burned during the session.
+      - Trainer Module: Before starting a run, the user selects the type of run (e.g., light jog, sprint), and the system informs them in real-time whether they are meeting the expected performance.
 
     3. **Time Monitoring System:** It includes a stopwatch that activates when the athlete starts their activity. This stopwatch is vital, as multiple components in the system depend on it. It continuously tracks the duration of the workout and is essential for calculating key performance metrics, including speed, distance covered, and calories burned. Its integration ensures real-time accuracy and consistency, supporting other features like heartbeat monitoring and the pedometer. This allows athletes to receive precise feedback on their performance and make informed adjustments during their sessions.
 
@@ -57,9 +58,9 @@
     - Average heartbeat
     - Peak heartbeat
     - Total distance covered
-    - Total steps taken
     - Total calories burnt
     - Total workout duration
+    - Improvement compared to previous run 
     This summary helps athletes analyze their performance, set future goals, and track their progress over time.
 </details>
 
@@ -168,26 +169,96 @@ This module consists of components that convert binary numbers to BCD (Binary-Co
 ## Logisim Circuit Diagram
 <details>
   <summary>Detail</summary>
+This is the main module of the circuit.
+	<details>
+  <summary>MAIN</summary>
+		This is the Main Module which integrates all the submodules to form our runner's performance monitoring system .
 
-  > logisim circuit diagram module.
-  >MAIN MODULE
+  ![MAIN MODULE](https://github.com/user-attachments/assets/7ccc6712-a262-4c4c-8192-e855fb85d3f7)
 
-  ![1](https://github.com/user-attachments/assets/146268a9-1562-4f34-af0d-500d2ce66957)
-  >PERFORMANCE EVALUATOR
-  
-  ![2](https://github.com/user-attachments/assets/4473842c-68ed-47c2-a61b-b38e237816bf)
-  >HEART RATE GENERATOR
-  
-  ![3](https://github.com/user-attachments/assets/afa67681-6d7c-4775-9cc8-dbbe36c86ce7)
-  >STEP GENERATOR
-  
-  ![4](https://github.com/user-attachments/assets/59d32feb-87b6-4b39-bc9e-6e0ad6c29f38)
-  >AVERAGE AND CALORIES
-  
-  ![5](https://github.com/user-attachments/assets/173f1edf-0173-4f80-bc17-775229d6f85a)
-  >TRAINER
-  
-  ![6](https://github.com/user-attachments/assets/e91bd3a0-5d90-4e44-8c08-75a393c925fd)
+ </details>
+The submodules of HEART RATE MONITORING COMPONENT  are
+<details>
+  <summary>HR GENERATOR </summary>
+
+![HR_GENERATOR](https://github.com/user-attachments/assets/dee01c50-5517-4310-a1c7-159137277b88)
+
+</details>
+<details>
+  <summary>PERFORMANCE EVALUATOR </summary>
+	
+
+![PERFORMANCE_EVALUATOR-](https://github.com/user-attachments/assets/869fce95-c6b6-43c1-90e2-3c38eef5ae86)
+
+</details>
+<details>
+  <summary>AVG HR AND CALORIE</summary>
+
+
+![AVG HR AND CALORIE](https://github.com/user-attachments/assets/018eb8fe-c0f7-434b-954b-b32a0c56e394)
+
+</details>
+<details>
+  <summary>PEAK HR</summary>
+
+![PEAK HR](https://github.com/user-attachments/assets/45247788-4650-4730-8630-9a565f51d9dc)
+
+</details>
+The Submodules of Pedometer are :
+<details>
+  <summary>STEP GENERATOR</summary>
+
+
+![STEP_GENERATOR](https://github.com/user-attachments/assets/13cb5c3b-2397-46df-a8cb-dcb7e6e73114)
+
+</details>
+<details>
+  <summary>TRAINER</summary>
+	
+![TRAINER](https://github.com/user-attachments/assets/79a3dcdd-9b74-4788-a1da-75daaf720a87)
+
+</details>
+<details>
+  <summary>SPEED N DISTANCE</summary>
+	
+![SPEED N DISTANCE](https://github.com/user-attachments/assets/2bf96dd7-5b52-4df8-bc01-c409ae4fa1bb)
+
+
+</details>
+The Submodules for STOP WATCH and DISPLAYING
+<details>
+  <summary>TIMER</summary>
+	
+![TIMER](https://github.com/user-attachments/assets/57d6230a-6f5f-4b73-8645-f0f1e337d27b)
+
+
+</details>
+<details>
+  <summary>TIMER DISPLAY</summary>
+	
+
+![TIMER FOR STOPWATCH](https://github.com/user-attachments/assets/44231d29-820d-40fa-990b-715ed8d7a526)
+
+</details>
+<details>
+  <summary>7-bit Binary to BCD </summary>
+
+
+![7-BIT BINARY TO BCD](https://github.com/user-attachments/assets/bbc6e9e2-c1e7-458e-926d-e2300eb417c7)
+
+</details>
+<details>
+  <summary>BCD TO 7-SEGMENT</summary>
+
+
+![BCD TO 7-SEGMENT converter](https://github.com/user-attachments/assets/540d0032-8f07-45f0-b3b3-b480e66adb73)
+
+</details>
+<details>
+  <summary>CLASSIFIER</summary>
+	
+![WORKOUT INTENSITY](https://github.com/user-attachments/assets/9e75dec2-ceea-4fbf-b4c8-45844ba78608)
+
 
 </details>
 
