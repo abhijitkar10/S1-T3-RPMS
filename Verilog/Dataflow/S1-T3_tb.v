@@ -3,7 +3,7 @@ module step_comparison_tb;
     reg clk;
     reg rst;
     reg [7:0] hr_input_1, hr_input_2;
-    reg [1:0] steps_per_second_1, steps_per_second_2;
+    reg [2:0] steps_per_second_1, steps_per_second_2;  // Changed to 3-bit to handle values from 1 to 4
     reg [7:0] stride_length_1, stride_length_2;
     reg valid_input_1, valid_input_2;
     wire [15:0] total_steps_1, total_steps_2;
@@ -18,8 +18,10 @@ module step_comparison_tb;
     wire [1:0] hr_comparison;
     wire step_feedback;
 
-    reg direction_hr_1; // Direction control for Run 1 (increment/decrement)
-    reg direction_hr_2; // Direction control for Run 2 (increment/decrement)
+    reg direction_hr_1;  // Direction control for Run 1 (increment/decrement)
+    reg direction_hr_2;  // Direction control for Run 2 (increment/decrement)
+    reg direction_steps_1;  // Direction control for steps per second (Run 1)
+    reg direction_steps_2;  // Direction control for steps per second (Run 2)
 
     // Instantiate two step calculators for each run
     StepCalculatorDataflow step_calculator_1 (
@@ -79,12 +81,14 @@ module step_comparison_tb;
         valid_input_2 = 0;
         stride_length_1 = 75;
         stride_length_2 = 75;
-        hr_input_1 = 121;
-        hr_input_2 = 96;
-        steps_per_second_1 = 2;
-        steps_per_second_2 = 2;
+        hr_input_1 = 110;  // Changed from 121 to 110
+        hr_input_2 = 88;  // Changed from 96 to 88
+        steps_per_second_1 =0; // Start at 1
+        steps_per_second_2 = 0; // Start at 1
         direction_hr_1 = 1; // Start incrementing for Run 1
         direction_hr_2 = 1; // Start incrementing for Run 2
+        direction_steps_1 = 1; // Start incrementing steps for Run 1
+        direction_steps_2 = 1; // Start incrementing steps for Run 2
 
         // Reset the system
         #10 rst = 0;
@@ -110,11 +114,23 @@ module step_comparison_tb;
                 if (hr_input_2 <= 96) direction_hr_2 = 1; // Start incrementing at 96
             end
 
-            // Steps per second pattern for Run 1: 2 3 4 3 2
-            steps_per_second_1 = (steps_per_second_1 == 4) ? 2 : steps_per_second_1 + 1;
-            
-            // Steps per second pattern for Run 2: 2 3 4 3 2
-            steps_per_second_2 = (steps_per_second_2 == 4) ? 2 : steps_per_second_2 + 1;
+            // Steps per second pattern for Run 1: 1 → 2 → 3 → 4 → 3 → 2 → 1
+            if (direction_steps_1) begin
+                steps_per_second_1 = steps_per_second_1 + 1;
+                if (steps_per_second_1 == 4) direction_steps_1 = 0; // Start decrementing at 4
+            end else begin
+                steps_per_second_1 = steps_per_second_1 - 1;
+                if (steps_per_second_1 == 1) direction_steps_1 = 1; // Start incrementing at 1
+            end
+
+            // Steps per second pattern for Run 2: 1 → 2 → 3 → 4 → 3 → 2 → 1
+            if (direction_steps_2) begin
+                steps_per_second_2 = steps_per_second_2 + 1;
+                if (steps_per_second_2 == 4) direction_steps_2 = 0; // Start decrementing at 4
+            end else begin
+                steps_per_second_2 = steps_per_second_2 - 1;
+                if (steps_per_second_2 == 1) direction_steps_2 = 1; // Start incrementing at 1
+            end
 
             valid_input_1 = 1;
             valid_input_2 = 1;
