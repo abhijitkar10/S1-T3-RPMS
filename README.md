@@ -263,6 +263,7 @@ The Submodules for STOP WATCH and DISPLAYING
 </details>
 
 
+</details>
 <!-- Sixth Section -->
 ## Verilog Code
 <details>
