@@ -215,6 +215,7 @@ module mag_comp8bit (
     xnor(eq1, a1, b1);  // XNOR gate for a1 and b1
     xnor(eq0, a0, b0);  // XNOR gate for a0 and b0
 
+endmodule
     and (q, eq7, eq6, eq5, eq4, eq3, eq2, eq1, eq0);  // AND all equality checks for q
 
     // Gate-level less than condition (p = a < b)
@@ -282,7 +283,7 @@ module StepCalculatorDataflow (
     input wire clk,
     input wire rst,
     input wire [7:0] hr_input,
-    input wire [1:0] steps_per_second,
+    input wire [2:0] steps_per_second,
     input wire [7:0] stride_length,
     input wire valid_input,
     output reg [15:0] total_steps,
@@ -361,13 +362,14 @@ endmodule
 module HeartRateAndStepComparator(
     input [7:0] hr_input,           // Current heart rate
     input [7:0] previous_hr,        // Previous heart rate
-    input [1:0] steps_input,        // Current steps per second
-    input [1:0] previous_steps,     // Previous steps per second
+    input [2:0] steps_input,        // Current steps per second
+    input [2:0] previous_steps,     // Previous steps per second
     output reg [1:0] hr_comparison, // 2'b00: same, 2'b01: higher, 2'b10: lower
     output reg step_feedback        // 1: "Good", 0: "Go Faster"
 );
 
     always @(*) begin
+
         // Compare heart rates
         if (hr_input > previous_hr)
             hr_comparison = 2'b01;  // Higher
