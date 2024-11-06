@@ -1470,6 +1470,8 @@ endmodule
 endmodule 
 ```
 </details>
+
+<!-- Sixth Section -->
 ## Logisim Simplified Circuit Diagram
 <details>
   <summary>Click to view circuit diagram</summary>
@@ -1479,6 +1481,7 @@ endmodule
   ![Simplified Circuit](https://github.com/user-attachments/assets/512a1b0f-aee5-4b86-8033-c7f5125a362e)
 </details>
 
+<!-- Seventh Section -->
 ## References
 <details>
   <summary>Click to view references</summary>
