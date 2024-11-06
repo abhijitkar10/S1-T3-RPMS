@@ -1471,7 +1471,17 @@ endmodule
 ```
 </details>
 
+<!-- sixth Section -->
+## Logisim simplified Circuit Diagram
+<details>
+  <summary>Detail</summary>
+This is the main module of the circuit.
+	<details>
+  <summary>MAIN</summary>
+![Simplified_circuit](https://github.com/user-attachments/assets/52735e82-d204-447d-ab49-8b2b6fd6efd0)
 
+
+ </details>
 
 </details>
 
