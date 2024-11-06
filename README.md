@@ -1470,7 +1470,7 @@ endmodule
 endmodule 
 ```
 </details>
-</details>
+
 ## Logisim Simplified Circuit Diagram
 <details>
   <summary>Detail</summary>
