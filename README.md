@@ -1478,8 +1478,8 @@ endmodule
 This is the main module of the circuit.
 	<details>
   <summary>MAIN</summary>
-![Simplified_circuit](https://github.com/user-attachments/assets/52735e82-d204-447d-ab49-8b2b6fd6efd0)
 
+![Simplified_circuit](https://github.com/user-attachments/assets/512a1b0f-aee5-4b86-8033-c7f5125a362e)
 
  </details>
 
