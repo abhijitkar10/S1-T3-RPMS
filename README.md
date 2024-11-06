@@ -1470,28 +1470,23 @@ endmodule
 endmodule 
 ```
 </details>
-
-<!-- sixth Section -->
-## Logisim simplified Circuit Diagram
+## Logisim Simplified Circuit Diagram
 <details>
   <summary>Detail</summary>
-This is the main module of the circuit.
-	<details>
-  <summary>MAIN</summary>
-
-![Simplified_circuit](https://github.com/user-attachments/assets/512a1b0f-aee5-4b86-8033-c7f5125a362e)
-
- </details>
-
+  This is the main module of the circuit.
+  
+  <details>
+    <summary>MAIN</summary>
+    <img src="https://github.com/user-attachments/assets/512a1b0f-aee5-4b86-8033-c7f5125a362e" alt="Simplified Circuit">
+  </details>
 </details>
 
-<!-- SIXTH Section -->
 ## References
 <details>
   <summary>Detail</summary>
 
-  > 1. https://www.rei.com/learn/expert-advice/how-to-train-with-a-heart-rate-monitor.html
-  > 2. https://tinyurl.com/heartrateinfo
-  > 3. https://www.runnersneed.com/expert-advice/gear-guides/running-watch-buying-guide.html
+  > 1. [How to Train with a Heart Rate Monitor](https://www.rei.com/learn/expert-advice/how-to-train-with-a-heart-rate-monitor.html)
+  > 2. [Heart Rate Info](https://tinyurl.com/heartrateinfo)
+  > 3. [Running Watch Buying Guide](https://www.runnersneed.com/expert-advice/gear-guides/running-watch-buying-guide.html)
 
 </details>
