@@ -1475,9 +1475,6 @@ endmodule
 <details>
   <summary>Detail</summary>
   This is the main module of the circuit.
-  
-  <details>
-    <summary>MAIN</summary>
     <img src="https://github.com/user-attachments/assets/512a1b0f-aee5-4b86-8033-c7f5125a362e" alt="Simplified Circuit">
   </details>
 
