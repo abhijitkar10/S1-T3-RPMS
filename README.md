@@ -1470,13 +1470,8 @@ endmodule
 endmodule 
 ```
 </details>
-## Logisim Simplified Circuit Diagram
 
 <details>
-  <summary>Click to view circuit diagram</summary>
-  ![Simplified Circuit](https://github.com/user-attachments/assets/512a1b0f-aee5-4b86-8033-c7f5125a362e)
-</details>
-
 ## References
 
 <details>
@@ -1487,13 +1482,6 @@ endmodule
   3. [Running Watch Buying Guide](https://www.runnersneed.com/expert-advice/gear-guides/running-watch-buying-guide.html)
 
 </details>
-
-
-
-
-
-
-
 
 
 
