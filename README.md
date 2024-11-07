@@ -1474,7 +1474,7 @@ endmodule
 </details>
 
 
-
+</details>
 ## Logisim Simplified Circuit Diagram
 
  
