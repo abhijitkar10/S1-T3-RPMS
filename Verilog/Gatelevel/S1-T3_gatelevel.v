@@ -214,9 +214,9 @@ module mag_comp8bit (
     xnor(eq2, a2, b2);  // XNOR gate for a2 and b2
     xnor(eq1, a1, b1);  // XNOR gate for a1 and b1
     xnor(eq0, a0, b0);  // XNOR gate for a0 and b0
-
-endmodule
     and (q, eq7, eq6, eq5, eq4, eq3, eq2, eq1, eq0);  // AND all equality checks for q
+
+    
 
     // Gate-level less than condition (p = a < b)
     wire lt7, lt6, lt5, lt4, lt3, lt2, lt1, lt0;
