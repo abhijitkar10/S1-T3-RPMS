@@ -1479,8 +1479,9 @@ endmodule
 
  
 
+<details>
 ![Simplified_circuit](https://github.com/user-attachments/assets/fb363ba4-114b-4d21-bdd4-cdc98162ba33)
-
+</details>
 
 ## References
 
