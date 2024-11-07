@@ -1472,9 +1472,10 @@ endmodule
 ```
 
 </details>
-</details>
-## Logisim Simplified Circuit Diagram
+</details
 
+
+## Logisim Simplified Circuit Diagram
 <details>
   <summary>Click to view circuit diagram</summary>
 
