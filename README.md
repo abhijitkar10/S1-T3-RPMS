@@ -165,6 +165,13 @@ This module consists of components that convert binary numbers to BCD (Binary-Co
 
 </details>
 
+## Design
+<details>
+  <summary>Detail</summary>
+
+</details>
+
+
 <!-- Fifth Section -->
 ## Logisim Circuit Diagram
 <details>
