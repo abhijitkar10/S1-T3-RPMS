@@ -1476,8 +1476,9 @@ endmodule
 
 </details>
 
-## Hawrdware Implementation
+## Hardware Implementation
 <details>
+	
 1.Average Heart Rate (Avg HR)
 This module calculates the average heart rate over a period of time. It would take in a series of heart rate data points (like beats per
 minute readings taken at regular intervals) and compute the mean. Implementation involves summing up all heart rate values and
@@ -1508,10 +1509,15 @@ dividing by the number of data points. This gives a good overview of the typical
 	• High: Above 2 bpm
  
 Classification can help assess the intensity of the activity, ensuring the user stays in desired zones based on training goals.
+
 • Input: A single heart rate reading.
+
 • Process: The heart rate is compared to predefined thresholds to categorize it into one of the three levels (Low, Medium, or
 High).
+
 • Output: The classification level of the heart rate reading, useful for monitoring exercise intensity.
+
+
 ![Simplified_circuit](https://github.com/user-attachments/assets/705d0ec8-bd37-4339-a77b-4f72f73fa466)
 
 </details>
