@@ -1476,9 +1476,42 @@ endmodule
 
 </details>
 
-## Logisim Simplified Circuit Diagram
+## Hawrdware Implementation
 <details>
+1.Average Heart Rate (Avg HR)
+This module calculates the average heart rate over a period of time. It would take in a series of heart rate data points (like beats per
+minute readings taken at regular intervals) and compute the mean. Implementation involves summing up all heart rate values and
+dividing by the number of data points. This gives a good overview of the typical heart rate during a session.
+	
+• Input: A series of heart rate readings recorded at regular intervals during a session.
 
+• Process: All heart rate readings are summed up and then divided by the number of readings to obtain the average heart rate.
+
+• Output: The average heart rate, which represents the typical heart rate throughout the session.
+
+
+2. Maximum Heart Rate (Max HR)
+	This module identifies the highest recorded heart rate in the dataset. It scans through all collected heart rate readings and picks the
+	maximum value. Max HR is useful for monitoring peak performance or exertion, helping to ensure the runner doesn’t exceed safe levels
+	during intense activities.
+
+	• Input: A collection of heart rate readings recorded during a session.
+
+	• Process: Each heart rate reading is checked, and the highest value among all readings is identified.
+
+	• Output: The maximum heart rate during the session, which indicates the peak exertion level.
+
+3. Classification of Heart Rate
+	This module classifies heart rate into three distinct levels:
+	• Low: Below 2 bpm
+	• Medium: 2 bpm
+	• High: Above 2 bpm
+ 
+Classification can help assess the intensity of the activity, ensuring the user stays in desired zones based on training goals.
+• Input: A single heart rate reading.
+• Process: The heart rate is compared to predefined thresholds to categorize it into one of the three levels (Low, Medium, or
+High).
+• Output: The classification level of the heart rate reading, useful for monitoring exercise intensity.
 ![Simplified_circuit](https://github.com/user-attachments/assets/705d0ec8-bd37-4339-a77b-4f72f73fa466)
 
 </details>
