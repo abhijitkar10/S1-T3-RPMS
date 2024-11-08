@@ -168,6 +168,46 @@ This module consists of components that convert binary numbers to BCD (Binary-Co
 ## Design
 <details>
   <summary>Detail</summary>
+**1. Main Module**: 
+   In this system, the user’s heart rate and steps per second are provided as inputs. Additionally, the user
+   selects the type of run, which can be either a walk, light jog, fast jog, or sprint. The circuit is activated by a start button
+   that links and synchronizes all the other modules. When the user initiates the run, the input data is stored and distributed to
+   the various modules, each responsible for specific functionalities and calculations. These modules process the data to generate
+   different classifications based on the user’s performance. Upon completion of the run, the final results are displayed, providing a
+   comprehensive overview of the runner’s performance.
+   
+**2. Stopwatch Module**: 
+   This module measures the total elapsed time and displays it in hours, minutes, and seconds. It incorporates
+   submodules such as counters, a timer, and a 7-segment display decoder to ensure accurate time tracking.
+   
+**3. Average and Calories Module**: 
+   This component calculates the runner’s average heart rate by summing multiple readings and
+   dividing by the total number of readings. Additionally, it employs a formula to estimate the calories burned based on the average
+   heart rate and the time elapsed during the session.
+   
+**4. Step Generator**: 
+   In the absence of physical sensors, this module simulates step inputs using a unique logic. It continuously
+   generates a series of steps, providing the necessary input for the system.
+   
+**5. Heart Rate Generator**: 
+   Similarly, without actual sensors, this module creates a new heart rate value every second. It uses
+   distinct logic to simulate heart rate data for analysis and monitoring.
+   
+**6. Maximum Heart Rate Module**: 
+   This module calculates and stores the runner’s maximum heart rate throughout the session,
+   providing a critical performance metric.
+   
+**7. Speed and Distance Calculator Module**: 
+   This component computes the runner’s speed and the distance covered during the
+   run, offering essential data for performance evaluation.
+   
+**8. Trainer Module**: 
+   Before starting the session, the runner selects a type of run. This module compares the runner’s actual speed
+   with the expected speed and provides real-time feedback, indicating whether they should increase or decrease their pace.
+   
+**9. Performance Evaluator**: 
+   This module compares the runner’s current performance with data from previous sessions. It manages
+   and stores the previous run’s data, offering real-time feedback on whether the runner’s performance has improved or declined.
 
 </details>
 
